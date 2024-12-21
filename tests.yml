@@ -1,3 +1,3 @@
-repo_owner: ваш_логин_на_гитхабе
+repo_owner: AlexeyKuzko
 kittygram_domain: полная ссылка (http://<ip-адрес вашей ВМ>:<порт gateway>) на ваш проект Kittygram
-dockerhub_username: ваш_логин_на_докерхабе 
+dockerhub_username: AlexeyKuzko
