@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: kittygram
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    env_file: .env
+    depends_on:
+      - postgres
+    volumes:
+      - static:/app/static
+      - media:/app/media
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - static:/app/static
+
+  gateway:
+    build: ./nginx
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - static:/app/static
+      - media:/app/media
+    ports:
+      - "80:80"
+
+volumes:
+  pg_data:
+  static:
+  media:
