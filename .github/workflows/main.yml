@@ -1,4 +1,4 @@
-name: CI/CD workflow for Kittygram
+name: Main Workflow
 
 on:
   push:
