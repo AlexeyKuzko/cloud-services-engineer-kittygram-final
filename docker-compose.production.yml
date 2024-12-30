@@ -1,39 +1,39 @@
-version: '3'
+version: '3.8'
 
 services:
   postgres:
     image: postgres:13
-    environment:
-      POSTGRES_DB: kittygram
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
+    env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
 
   backend:
     build: ./backend
     env_file: .env
-    depends_on:
-      - postgres
     volumes:
       - static:/app/static
       - media:/app/media
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
 
   frontend:
     build: ./frontend
+    env_file: .env
     volumes:
-      - static:/app/static
+      - static:/usr/share/nginx/html/static
 
   gateway:
     build: ./nginx
+    volumes:
+      - static:/usr/share/nginx/html/static
+      - media:/usr/share/nginx/html/media
+    ports:
+      - "9000:80"
     depends_on:
       - backend
       - frontend
-    volumes:
-      - static:/app/static
-      - media:/app/media
-    ports:
-      - "80:80"
 
 volumes:
   pg_data:

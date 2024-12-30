@@ -1,4 +1,4 @@
-name: Main CI/CD workflow for Kittygram
+name: CI/CD workflow for Kittygram
 
 on:
   push:
@@ -7,9 +7,7 @@ on:
 
 jobs:
   tests:
-    # Разворачиваем окружение:
     runs-on: ubuntu-latest
-
     steps:
     # Копируем код проекта:
     - name: Check out code
@@ -160,7 +158,7 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         source: "docker-compose.production.yml"
-        target: "имя_директории_на_сервере"
+        target: "~/kittygram"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
@@ -172,7 +170,7 @@ jobs:
         # которые нужно выполнить на сервере, 
         # с которым установлено соединение:
         script: |
-          cd имя_директории_на_сервере
+          cd ~/kittygram
           # Выполняет pull образов с Docker Hub
           sudo docker compose -f docker-compose.production.yml pull
           # Перезапускает все контейнеры в Docker Compose
