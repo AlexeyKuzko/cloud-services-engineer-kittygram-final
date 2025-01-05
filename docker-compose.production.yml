@@ -5,35 +5,56 @@ volumes:
   media:
   pg_data:
 
+networks:
+  kittygram-network:
+    driver: bridge
+
 services:
-  postgres:
-    image: postgres:13
-    env_file: .env
-    volumes:
-      - pg_data:/var/lib/postgresql/data
-  backend:
-    build: ./backend
-    env_file: .env
-    volumes:
-      - static:/app/static
-      - media:/app/media
-    depends_on:
-      - postgres
-    ports:
-      - "8000:8000"
-  frontend:
-    build: ./frontend
-    env_file: .env
-    volumes:
-      - static:/usr/share/nginx/html/static
   gateway:
-    build: ./nginx
-    volumes:
-      - static:/usr/share/nginx/html/static
-      - media:/usr/share/nginx/html/media
+    image: alexeykuzko/kittygram_gateway:latest
+    container_name: gateway
     ports:
-      - "8888:80"
+      - '80:80/tcp'
+    restart: always
     depends_on:
       - backend
       - frontend
+    networks:
+      - kittygram-network
+    volumes:
+      - backend-static:/var/html/backend
+      - media:/var/html/media
+      - frontend-static:/var/html/static
+
+  backend:
+    image: alexeykuzko/kittygram_backend:latest
+    container_name: backend
+    restart: always
+    env_file: .env
+    networks:
+      - kittygram-network
+    volumes:
+      - backend-static:/app/collected_static
+      - media:/app/media
+    depends_on:
+      - postgres
+    
+  frontend:
+    image: alexeykuzko/kittygram_frontend:latest
+    container_name: frontend
+    restart: always
+    networks:
+      - kittygram-network
+    volumes:
+      - frontend-static:/app/build
+    
+  postgres:
+    image: postgres:13
+    container_name: postgres
+    restart: always
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - kittygram-network
 
