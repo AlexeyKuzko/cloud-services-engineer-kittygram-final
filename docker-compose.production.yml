@@ -1,4 +1,9 @@
-version: '3.8'
+version: '3'
+
+volumes:
+  static:
+  media:
+  pg_data:
 
 services:
   postgres:
@@ -6,7 +11,6 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
-
   backend:
     build: ./backend
     env_file: .env
@@ -17,25 +21,19 @@ services:
       - postgres
     ports:
       - "8000:8000"
-
   frontend:
     build: ./frontend
     env_file: .env
     volumes:
       - static:/usr/share/nginx/html/static
-
   gateway:
     build: ./nginx
     volumes:
       - static:/usr/share/nginx/html/static
       - media:/usr/share/nginx/html/media
     ports:
-      - "9000:80"
+      - "8888:80"
     depends_on:
       - backend
       - frontend
 
-volumes:
-  pg_data:
-  static:
-  media:
