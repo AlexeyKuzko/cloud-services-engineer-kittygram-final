@@ -22,9 +22,9 @@ services:
     networks:
       - kittygram-network
     volumes:
-      - backend-static:/var/html/backend
+      - static:/var/html/backend
       - media:/var/html/media
-      - frontend-static:/var/html/static
+      - static:/var/html/static
 
   backend:
     image: alexeykuzko/kittygram_backend:latest
@@ -34,7 +34,7 @@ services:
     networks:
       - kittygram-network
     volumes:
-      - backend-static:/app/collected_static
+      - static:/app/collected_static
       - media:/app/media
     depends_on:
       - postgres
@@ -46,7 +46,7 @@ services:
     networks:
       - kittygram-network
     volumes:
-      - frontend-static:/app/build
+      - static:/app/build
     
   postgres:
     image: postgres:13
