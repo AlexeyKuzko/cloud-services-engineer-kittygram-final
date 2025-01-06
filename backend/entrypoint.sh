@@ -1,10 +1,12 @@
 #!/bin/bash
 
-echo "Collecting static"
+echo "Current directory contents: $(ls -la)"
+
+echo "collectstatic"
 python manage.py collectstatic --noinput || exit 1
 
-echo "Migrating database"
+echo "migrate"
 python manage.py migrate || exit 1
 
-echo "Running server"
+echo "runserver"
 python manage.py runserver 0.0.0.0:8000
