@@ -131,7 +131,7 @@ jobs:
         python -m pip install --upgrade pip 
         pip install -r ./backend/requirements.txt 
     - name: Run tests
-      run: cd ~/kittygram && python -m pytest
+      run: python -m pytest
 
   telegram-notify:
     runs-on: ubuntu-latest
