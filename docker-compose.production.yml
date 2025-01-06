@@ -24,6 +24,7 @@ services:
     volumes:
       - static:/var/html/backend
       - media:/var/html/media
+      - media:/app/media
       - static:/var/html/static
 
   backend:

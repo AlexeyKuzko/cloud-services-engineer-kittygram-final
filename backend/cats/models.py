@@ -16,10 +16,8 @@ class Cat(models.Model):
     color = models.CharField(max_length=16)
     birth_year = models.IntegerField()
     owner = models.ForeignKey(
-        User, related_name="cats", on_delete=models.CASCADE
-    )
-    owner = models.ForeignKey(
-        User, related_name="cats", on_delete=models.CASCADE
+        User, related_name='cats',
+        on_delete=models.CASCADE
     )
     achievements = models.ManyToManyField(
         Achievement, through="AchievementCat"
