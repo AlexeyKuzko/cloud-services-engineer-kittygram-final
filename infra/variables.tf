@@ -8,7 +8,7 @@ variable "folder_id" {
 
 variable "zone" {
   type    = string
-  default = "ru-central1-a"
+  default = "ru-central1-d"
 }
 
 variable "vm_name" {
