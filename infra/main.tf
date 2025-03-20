@@ -13,8 +13,8 @@ resource "yandex_vpc_subnet" "kittygram_subnet" {
 
 # Группа безопасности
 resource "yandex_vpc_security_group" "kittygram_sg" {
-  name        = "kittygram-sg"
-  network_id  = yandex_vpc_network.kittygram_network.id
+  name       = "kittygram-sg"
+  network_id = yandex_vpc_network.kittygram_network.id
 
   # Разрешаем входящий SSH
   ingress {
@@ -26,7 +26,7 @@ resource "yandex_vpc_security_group" "kittygram_sg" {
   # Разрешаем входящий HTTP
   ingress {
     protocol       = "TCP"
-    port           = 9000  # порт gateway
+    port           = 9000 # порт gateway
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -58,12 +58,12 @@ resource "yandex_compute_instance" "kittygram_vm" {
 
   network_interface {
     subnet_id          = yandex_vpc_subnet.kittygram_subnet.id
-    nat               = true
+    nat                = true
     security_group_ids = [yandex_vpc_security_group.kittygram_sg.id]
   }
 
   metadata = {
-    ssh-keys = "${var.ssh_username}:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys  = "${var.ssh_username}:${file("~/.ssh/id_rsa.pub")}"
     user-data = <<-EOF
               #!/bin/bash
               apt-get update
