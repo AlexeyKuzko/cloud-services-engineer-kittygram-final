@@ -42,7 +42,7 @@ resource "yandex_vpc_security_group" "kittygram_sg" {
 # Виртуальная машина
 resource "yandex_compute_instance" "kittygram_vm" {
   name        = var.vm_name
-  platform_id = "standard-v1"
+  platform_id = "linux_amd64"
 
   resources {
     cores  = 2
