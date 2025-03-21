@@ -24,12 +24,10 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Configure Yandex Cloud
+        uses: yc-actions/yc-cr-login@v1
         with:
-          aws-access-key-id: ${{ secrets.ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.SECRET_KEY }}
-          aws-region: ru-central1
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON }}
 
       - name: Terraform Init
         working-directory: ./infra
