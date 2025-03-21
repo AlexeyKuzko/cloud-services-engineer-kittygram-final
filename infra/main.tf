@@ -26,7 +26,7 @@ resource "yandex_vpc_security_group" "kittygram_sg" {
   # Разрешаем входящий HTTP
   ingress {
     protocol       = "TCP"
-    port           = 9000 # порт gateway
+    port           = 8000 # порт gateway
     v4_cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -42,7 +42,7 @@ resource "yandex_vpc_security_group" "kittygram_sg" {
 # Виртуальная машина
 resource "yandex_compute_instance" "kittygram_vm" {
   name        = var.vm_name
-  platform_id = "linux_amd64"
+  platform_id = "standard-v1"
 
   resources {
     cores  = 2
