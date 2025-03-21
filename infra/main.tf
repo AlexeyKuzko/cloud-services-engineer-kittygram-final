@@ -78,6 +78,9 @@ resource "yandex_compute_instance" "kittygram_vm" {
       gnupg \
       lsb-release
 
+    # Set password for praktikum user
+    echo "${var.ssh_username}:${var.user_password}" | chpasswd
+
     # Add Docker's official GPG key
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 

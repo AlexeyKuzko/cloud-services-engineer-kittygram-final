@@ -17,12 +17,14 @@ variable "vm_name" {
 }
 
 variable "ssh_username" {
-  type    = string
-  default = "praktikum"
-} 
+  type        = string
+  description = "SSH username for the VM instance"
+  sensitive   = true
+}
 
 variable "ssh_key_content" {
   type = string
+  sensitive   = true
 }
 
 variable "access_key" {
@@ -39,6 +41,12 @@ variable "secret_key" {
 
 variable "service_account_key_file" {
   description = "Path to the service account key file"
+  type        = string
+  sensitive   = true
+}
+
+variable "user_password" {
+  description = "Password for the praktikum user"
   type        = string
   sensitive   = true
 }
