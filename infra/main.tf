@@ -110,7 +110,3 @@ resource "yandex_storage_bucket" "kittygram_bucket" {
   access_key = var.access_key
   secret_key = var.secret_key
 }
-
-output "external_ip" {
-  value = yandex_compute_instance.kittygram_vm.network_interface[0].nat_ip_address
-}
