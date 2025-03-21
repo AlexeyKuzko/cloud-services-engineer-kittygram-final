@@ -24,3 +24,13 @@ variable "ssh_username" {
 variable "ssh_key_content" {
   type = string
 }
+
+variable "access_key" {
+  description = "Yandex Cloud access key for S3"
+  type        = string
+}
+
+variable "secret_key" {
+  description = "Yandex Cloud secret key for S3"
+  type        = string
+}
