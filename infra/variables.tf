@@ -36,3 +36,9 @@ variable "secret_key" {
   type        = string
   sensitive   = true
 }
+
+variable "service_account_key_file" {
+  description = "Path to the service account key file"
+  type        = string
+  sensitive   = true
+}

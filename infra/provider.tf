@@ -25,4 +25,5 @@ provider "yandex" {
   cloud_id  = var.cloud_id
   folder_id = var.folder_id
   zone      = "ru-central1-d" // зона доступности по-умолчанию, где будут создаваться ресурсы
+  service_account_key_file = var.service_account_key_file
 }

@@ -48,6 +48,7 @@ jobs:
           TF_VAR_access_key: ${{ secrets.ACCESS_KEY }}
           TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
           TF_VAR_ssh_key_content: ${{ secrets.SSH_KEY }}
+          TF_VAR_service_account_key_file: ${{ secrets.SA_KEY_FILE }}
 
       - name: Terraform Apply
         if: github.event.inputs.action == 'apply'
@@ -59,6 +60,7 @@ jobs:
           TF_VAR_access_key: ${{ secrets.ACCESS_KEY }}
           TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
           TF_VAR_ssh_key_content: ${{ secrets.SSH_KEY }}
+          TF_VAR_service_account_key_file: ${{ secrets.SA_KEY_FILE }}
 
       - name: Terraform Destroy
         if: github.event.inputs.action == 'destroy'
@@ -70,3 +72,4 @@ jobs:
           TF_VAR_access_key: ${{ secrets.ACCESS_KEY }}
           TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
           TF_VAR_ssh_key_content: ${{ secrets.SSH_KEY }}
+          TF_VAR_service_account_key_file: ${{ secrets.SA_KEY_FILE }}
