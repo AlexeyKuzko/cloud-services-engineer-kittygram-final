@@ -13,7 +13,7 @@ variable "zone" {
 
 variable "vm_name" {
   type    = string
-  default = "test"
+  default = "kittygram-${formatdate("YYYYMMDD-hhmmss", timestamp())}"
 }
 
 variable "ssh_username" {
