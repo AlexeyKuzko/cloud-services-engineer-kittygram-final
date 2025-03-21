@@ -109,6 +109,4 @@ resource "yandex_storage_bucket" "kittygram_bucket" {
   bucket = "kittygram-bucket-${var.vm_name}"
   access_key = var.access_key
   secret_key = var.secret_key
-  endpoint = "https://storage.yandexcloud.net"
-  region = "ru-central1"
 } 
