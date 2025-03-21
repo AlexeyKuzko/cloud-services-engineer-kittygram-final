@@ -49,6 +49,8 @@ jobs:
           TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
           TF_VAR_ssh_key_content: ${{ secrets.SSH_KEY }}
           TF_VAR_service_account_key_file: ${{ secrets.SA_KEY_FILE }}
+          TF_VAR_user_password: ${{ secrets.USER_PASSWORD }}
+          TF_VAR_ssh_username: ${{ secrets.USER }}
 
       - name: Terraform Apply
         if: github.event.inputs.action == 'apply'
@@ -75,3 +77,5 @@ jobs:
           TF_VAR_secret_key: ${{ secrets.SECRET_KEY }}
           TF_VAR_ssh_key_content: ${{ secrets.SSH_KEY }}
           TF_VAR_service_account_key_file: ${{ secrets.SA_KEY_FILE }}
+          TF_VAR_user_password: ${{ secrets.USER_PASSWORD }}
+          TF_VAR_ssh_username: ${{ secrets.USER }}
