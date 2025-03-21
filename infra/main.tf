@@ -106,7 +106,16 @@ resource "yandex_compute_instance" "kittygram_vm" {
 
 # S3 bucket for application data
 resource "yandex_storage_bucket" "kittygram_bucket" {
-  bucket = "kittygram-bucket-${var.vm_name}"
-  access_key = var.access_key
-  secret_key = var.secret_key
+  bucket        = "kittygram-bucket-${var.vm_name}"
+  access_key    = var.access_key
+  secret_key    = var.secret_key
+  force_destroy = true  # Allow terraform to destroy the bucket even if it contains objects
+
+  lifecycle {
+    prevent_destroy = false  # Allow the bucket to be destroyed
+    ignore_changes  = [
+      access_key,
+      secret_key
+    ]
+  }
 }
