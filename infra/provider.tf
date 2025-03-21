@@ -16,9 +16,6 @@ terraform {
     skip_requesting_account_id  = true
     skip_s3_checksum           = true
     force_path_style           = true
-    
-    # Add these lines to fix the 501 NotImplemented error
-    use_path_style = true
     skip_metadata_api_check = true
   }
 }
