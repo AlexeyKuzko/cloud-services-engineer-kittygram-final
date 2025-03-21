@@ -13,12 +13,12 @@ variable "zone" {
 
 variable "vm_name" {
   type    = string
-  default = "kittygram-server"
+  default = "test"
 }
 
 variable "ssh_username" {
   type    = string
-  default = "ubuntu"
+  default = "praktikum"
 } 
 
 variable "ssh_key_content" {
