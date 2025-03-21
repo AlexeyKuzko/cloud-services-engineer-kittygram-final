@@ -28,9 +28,11 @@ variable "ssh_key_content" {
 variable "access_key" {
   description = "Yandex Cloud access key for S3"
   type        = string
+  sensitive   = true
 }
 
 variable "secret_key" {
   description = "Yandex Cloud secret key for S3"
   type        = string
+  sensitive   = true
 }
