@@ -7,7 +7,7 @@ terraform {
   required_version = ">= 0.13" // версия, совместимая с провайдером версия Terraform
 
   backend "s3" {
-    s3 = "https://storage.yandexcloud.net"
+    endpoint = "https://storage.yandexcloud.net"
     bucket   = "s3-bucket-yndx-kuzkoalexey"
     region   = "ru-central1"
     key      = "tf-state.tfstate"
