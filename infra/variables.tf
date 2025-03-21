@@ -20,3 +20,7 @@ variable "ssh_username" {
   type    = string
   default = "ubuntu"
 } 
+
+variable "ssh_key_content" {
+  type = string
+}

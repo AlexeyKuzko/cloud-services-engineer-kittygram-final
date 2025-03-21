@@ -63,13 +63,13 @@ resource "yandex_compute_instance" "kittygram_vm" {
   }
 
   metadata = {
-    ssh-keys  = "${var.ssh_username}:${file("~/.ssh/id_rsa.pub")}"
+    ssh-keys  = "${var.ssh_username}:${var.ssh_key_content}"
     user-data = <<-EOF
-              #!/bin/bash
-              apt-get update
-              apt-get install -y docker.io docker-compose
-              systemctl start docker
-              systemctl enable docker
-              EOF
+    #!/bin/bash
+    apt-get update
+    apt-get install -y docker.io docker-compose
+    systemctl start docker
+    systemctl enable docker
+    EOF
   }
 } 
