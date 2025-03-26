@@ -3,12 +3,26 @@
 ## Описание проекта
 Kittygram - это веб-приложение, где пользователи могут делиться фотографиями своих котов, указывать их достижения и особенности.
 
+
 ## Технологии
 - Frontend: React
 - Backend: Django REST Framework
 - База данных: PostgreSQL
 - Инфраструктура: Docker, Terraform, Yandex Cloud
 - CI/CD: GitHub Actions
+
+## Структура проекта
+```
+├── backend/         # Django бэкенд
+├── frontend/        # React фронтенд
+├── infra/          # Terraform конфигурация
+└── .github/        # GitHub Actions
+├── backend/ # Django бэкенд
+├── frontend/ # React фронтенд
+├── infra/ # Terraform конфигурация
+└── .github/ # GitHub Actions
+```
+
 
 ## Запуск проекта локально
 
@@ -59,69 +73,3 @@ cd infra
 terraform init
 terraform apply
 ```
-
-## Структура проекта
-```
-├── backend/         # Django бэкенд
-├── frontend/        # React фронтенд
-├── infra/          # Terraform конфигурация
-└── .github/        # GitHub Actions
-├── backend/ # Django бэкенд
-├── frontend/ # React фронтенд
-├── infra/ # Terraform конфигурация
-└── .github/ # GitHub Actions
-```
-
-3. **Модульная структура Terraform**
-Рекомендую разделить текущую конфигурацию на модули:
-infra/
-├── modules/
-│ ├── network/
-│ │ ├── main.tf # VPC, subnet, security group
-│ │ ├── variables.tf
-│ │ └── outputs.tf
-│ ├── compute/
-│ │ ├── main.tf # VM instance
-│ │ ├── variables.tf
-│ │ └── outputs.tf
-│ └── storage/
-│ ├── main.tf # S3 bucket
-│ ├── variables.tf
-│ └── outputs.tf
-├── main.tf
-├── variables.tf
-├── outputs.tf
-└── provider.tf
-4. **Бинарные файлы**
-Добавьте в `.gitignore`:
-
-```gitignore
-# Terraform
-**/.terraform/*
-*.tfstate
-*.tfstate.*
-crash.log
-*.tfvars
-override.tf
-override.tf.json
-*_override.tf
-*_override.tf.json
-
-# Binary files
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.pdf
-*.zip
-*.tar.gz
-```
-
-5. **Тесты**
-Для исправления ошибок в тестах нужно увидеть лог ошибки. Рекомендую проверить:
-- Доступность всех необходимых портов в security group
-- Корректность переменных окружения
-- Права доступа к директориям
-- Статус сервисов после деплоя
-
-Если вам нужна помощь с конкретной ошибкой тестов, пожалуйста, предоставьте лог ошибки.
