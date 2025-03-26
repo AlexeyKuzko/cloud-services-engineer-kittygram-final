@@ -1,24 +1,127 @@
-#  Как работать с репозиторием финального задания
+# Kittygram - социальная сеть для любителей котиков
 
-## Что нужно сделать
+## Описание проекта
+Kittygram - это веб-приложение, где пользователи могут делиться фотографиями своих котов, указывать их достижения и особенности.
 
-Настроить запуск проекта Kittygram в контейнерах и CI/CD с помощью GitHub Actions
+## Технологии
+- Frontend: React
+- Backend: Django REST Framework
+- База данных: PostgreSQL
+- Инфраструктура: Docker, Terraform, Yandex Cloud
+- CI/CD: GitHub Actions
 
-## Как проверить работу с помощью автотестов
+## Запуск проекта локально
 
-В корне репозитория создайте файл tests.yml со следующим содержимым:
-```yaml
-repo_owner: ваш_логин_на_гитхабе
-kittygram_domain: полная ссылка (http://<ip-адрес вашей ВМ>:<порт gateway>) на ваш проект Kittygram
-dockerhub_username: ваш_логин_на_докерхабе
+1. Клонируйте репозиторий:
+```bash
+git clone <your-repo-url>
+cd kittygram
 ```
 
-Скопируйте содержимое файла `.github/workflows/main.yml` в файл `kittygram_workflow.yml` в корневой директории проекта.
+2. Создайте файл `.env` в корне проекта:
 
-Для локального запуска тестов создайте виртуальное окружение, установите в него зависимости из backend/requirements.txt и запустите в корневой директории проекта `pytest`.
+POSTGRES_USER=kittygram_user
+POSTGRES_PASSWORD=kittygram_password
+POSTGRES_DB=kittygram
+DB_HOST=db
+DB_PORT=5432
+SECRET_KEY=your-secret-key
+DEBUG=False
+ALLOWED_HOSTS=localhost,127.0.0.1
 
-## Чек-лист для проверки перед отправкой задания
+3. Запустите проект через Docker Compose:
+```bash
+docker compose up -d
+```
 
-- Проект Kittygram доступен по ссылке, указанной в `tests.yml`.
-- Пуш в ветку main запускает тестирование и деплой Kittygram, а после успешного деплоя вам приходит сообщение в телеграм.
-- В корне проекта есть файл `kittygram_workflow.yml`.
+4. Выполните миграции:
+```bash
+docker compose exec backend python manage.py migrate
+```
+
+## Развертывание в облаке
+
+1. Создайте файл `tests.yml` в корне проекта с вашими данными.
+
+2. Настройте secrets в GitHub:
+   - YC_SA_JSON
+   - YC_CLOUD_ID
+   - YC_FOLDER_ID
+   - SSH_KEY
+   - ACCESS_KEY
+   - SECRET_KEY
+   - USER_PASSWORD
+   - USER
+
+3. Запустите Terraform:
+```bash
+cd infra
+terraform init
+terraform apply
+```
+
+## Структура проекта
+```
+├── backend/         # Django бэкенд
+├── frontend/        # React фронтенд
+├── infra/          # Terraform конфигурация
+└── .github/        # GitHub Actions
+├── backend/ # Django бэкенд
+├── frontend/ # React фронтенд
+├── infra/ # Terraform конфигурация
+└── .github/ # GitHub Actions
+```
+
+3. **Модульная структура Terraform**
+Рекомендую разделить текущую конфигурацию на модули:
+infra/
+├── modules/
+│ ├── network/
+│ │ ├── main.tf # VPC, subnet, security group
+│ │ ├── variables.tf
+│ │ └── outputs.tf
+│ ├── compute/
+│ │ ├── main.tf # VM instance
+│ │ ├── variables.tf
+│ │ └── outputs.tf
+│ └── storage/
+│ ├── main.tf # S3 bucket
+│ ├── variables.tf
+│ └── outputs.tf
+├── main.tf
+├── variables.tf
+├── outputs.tf
+└── provider.tf
+4. **Бинарные файлы**
+Добавьте в `.gitignore`:
+
+```gitignore
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+*.tfvars
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Binary files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.pdf
+*.zip
+*.tar.gz
+```
+
+5. **Тесты**
+Для исправления ошибок в тестах нужно увидеть лог ошибки. Рекомендую проверить:
+- Доступность всех необходимых портов в security group
+- Корректность переменных окружения
+- Права доступа к директориям
+- Статус сервисов после деплоя
+
+Если вам нужна помощь с конкретной ошибкой тестов, пожалуйста, предоставьте лог ошибки.
